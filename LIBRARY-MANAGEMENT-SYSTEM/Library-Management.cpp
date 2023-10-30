@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<iostream>
 #include<string>
-#include "conio.h"
+#include <conio.h>
 #include "Fine_Calculate.cpp"
 using namespace std;
 
