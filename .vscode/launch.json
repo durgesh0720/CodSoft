@@ -1,5 +1,6 @@
 {
     "configurations": [
+        
         {
             "name": "(gdb) Launch",
             "type": "cppdbg",
@@ -11,7 +12,7 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\g++",
+            "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
