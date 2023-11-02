@@ -1,133 +1,316 @@
-#include<iostream>
-#include<stdio.h>
-#include<string>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <conio.h>
+#include <stdio.h>
 
 using namespace std;
 
-struct task
+struct Task 
 {
     string taskName;
     bool status;
-    task* next;
     int num;
+    Task* next;
 };
 
-class ToDoList
+class ToDoList 
 {
-    private:
-        task* start;
-    public:
-        task* search(string);
-        task* search(int);
-        ToDoList();
-        void AddTask(string,int);
-        void ViewTask(task*);
-        void MarkToCompleted(task*);
-        void RemoveTask(task*);
-        ~ToDoList();
+private:
+    Task* start;
+
+public:
+    ToDoList();
+    ~ToDoList();
+    void LoadTasks();
+    void SaveTasks();
+    Task* search(string);
+    Task* search(int);
+    void AddTask(string, int);
+    void ViewTask(Task*);
+    void MarkToCompleted(Task*);
+    void RemoveTask(Task*);
+    void viewAllTask();
 };
-ToDoList :: ~ToDoList()                     // deallocate memory of object and dynamic created space
+
+ToDoList::ToDoList() 
 {
-    while(start)
+    start = NULL;
+    LoadTasks();
+}
+
+ToDoList::~ToDoList() 
+{
+    SaveTasks();
+    while (start)
         RemoveTask(start);
 }
-void ToDoList :: RemoveTask(task* t)                // remove a particular task
+
+void ToDoList::LoadTasks() 
 {
-    task* r;
-    if(t)
+    ifstream inputFile("tasks.txt");
+    if (inputFile) 
     {
-        if(t==start)
+        string taskName;
+        int taskNum;
+        Task* lastTask = NULL;
+
+        while (inputFile >> taskName >> taskNum) 
         {
-            start=t->next;
-            r=t;
+            Task* newTask = new Task;
+            newTask->taskName = taskName;
+            newTask->num = taskNum;
+            newTask->next = NULL;
+
+            char statusChar;
+            if (inputFile >> statusChar) 
+                newTask->status = (statusChar == '1'); 
+
+            else 
+                newTask->status = false;
+
+            if (lastTask) 
+                lastTask->next = newTask;
+
+            else 
+                start = newTask;
+
+            lastTask = newTask;
+            inputFile.ignore();
         }
-        else
-        {
-            r=t->next;
-            t->next=r->next;
-        }
-        delete r;
+        inputFile.close();
     }
-}   
-void ToDoList :: MarkToCompleted(task* t)               //  mark to complete
-{
-    if(t)
-    {
-        if(t->status)
-            cout<<"\nThis task is already completed!";
-        else
-        {
-            cout<<"\nTask marked for complete\n";
-            t->status=true;
-        }
-    }
-    else
-        cout<<"\nList is Empty or Task not found!\n";
 }
-void ToDoList :: ViewTask(task* t)                      // View a particuller task
+
+void ToDoList::SaveTasks() 
 {
-    if(t)
+    ofstream outputFile("tasks.txt");
+    if (outputFile) 
     {
-        cout<<"\nTask number: "<<t->num;
-        cout<<"\n Your Task is: "<<t->taskName;
-        if(t->status)
-            cout<<"\nYour task is completed!\n";
-        else
-            cout<<"\nYour task pending!\n";
+        Task* t = start;
+        while (t) 
+        {
+            outputFile << t->taskName << " " << t->num << " " << (t->status ? "1" : "0") << endl;
+            t = t->next;
+        }
+        outputFile.close();
     }
-    else
-        cout<<"\nList is Empty or Task not found!\n";
 }
-task* ToDoList :: search(string tsk)            // searching task by passing task name and return task node address
+
+void ToDoList::viewAllTask() 
 {
-    task* t;
-    if(start)
+    Task* t = start;
+    while (t) 
     {
-        t=start;
-        if(t->taskName==tsk)
+        ViewTask(t);
+        t = t->next;
+    }
+}
+
+void ToDoList::RemoveTask(Task* t) 
+{
+    Task* r;
+    if (t) 
+    {
+        if (t == start) 
+        {
+            start = t->next;
+            r = t;
+        } 
+        else 
+        {
+            r = start;
+            while (r->next != t) 
+                r = r->next;
+
+            r->next = t->next;
+        }
+        delete t;
+        SaveTasks();
+    }
+}
+
+void ToDoList::MarkToCompleted(Task* t) 
+{
+    if (t) 
+    {
+        if (t->status) 
+            cout << "\nThis task is already completed!"; 
+
+        else 
+        {
+            cout << "\nTask marked for complete\n";
+            t->status = true;
+            SaveTasks();
+        }
+    } 
+    else
+        cout << "\nList is Empty or Task not found!\n";
+}
+
+void ToDoList::ViewTask(Task* t) 
+{
+    if (t) 
+    {
+        cout << "\nTask number: " << t->num;
+        cout << "\n Your Task is: " << t->taskName;
+
+        if (t->status) 
+            cout << "\nYour task is completed!\n";
+
+        else 
+            cout << "\nYour task is pending!\n";
+    } 
+    else 
+        cout << "\nList is Empty or Task not found!\n";
+}
+
+Task* ToDoList::search(string tsk) 
+{
+    Task* t = start;
+    while (t) 
+    {
+        if (t->taskName == tsk) 
             return t;
-        else
-        {
-            while(t->next)
-            {
-                if(t->next->taskName==tsk)
-                    return t;
-                t=t->next;
-            }
-        }
+        t = t->next;
     }
     return NULL;
 }
-task* ToDoList :: search(int n)
+
+Task* ToDoList::search(int n) 
 {
-    task* t;
-    if(start)
+    Task* t = start;
+    while (t) 
     {
-        t=start;
-        if(t->num==n)
+        if (t->num == n) 
             return t;
-        else
-        {
-            while(t->next)
-            {
-                if(t->next->num==n)
-                    return t;
-                t=t->next;
-            }
-        }
+
+        t = t->next;
     }
     return NULL;
 }
-void ToDoList :: AddTask(string tsk,int number)        // add a new task at start of list
+
+void ToDoList::AddTask(string tsk, int number) 
 {
-    task* n = new task;
-    n->status=false;
-    n->num=number;
-    n->taskName=tsk;
-    n->next=start;
-    start=n;
+    Task* t;
+    Task* n = new Task;
+    n->status = false;
+    n->num = number;
+    n->taskName = tsk;
+    n->next = NULL;
+    if (start == NULL) 
+        start = n;
+    else 
+    {
+        t = start;
+        while (t->next) 
+            t = t->next;
+
+        t->next = n;
+    }
+    SaveTasks();
 }
-ToDoList :: ToDoList()          // constructor
+
+int main() 
 {
-    start=NULL;
+    ToDoList list;
+    int taskNum, choice;
+    string taskName;
+    char check;
+    cout << "\t<-------{ WELCOME TO TO DO LIST }--------->" << endl << endl;
+
+    while (1) 
+    {
+        cout << "\t1. Add Task\n";
+        cout << "\t2. View Task\n";
+        cout << "\t3. View All Task\n";
+        cout << "\t4. Mark Task as Completed\n";
+        cout << "\t5. Remove Task\n";
+        cout << "\t6. Exit\n";
+        cin >> choice;
+
+        system("cls");
+        cin.ignore();
+
+        switch (choice) 
+        {
+            case 1:
+                cout << "\nEnter your Task: ";
+                getline(cin, taskName);
+                cout << "\nEnter Task number: ";
+                cin >> taskNum;
+                list.AddTask(taskName, taskNum);
+                cout << "\tYour Task is Added!\n";
+                _getch();
+                system("cls");
+                break;
+
+            case 2:
+                cout << "\nEnter your Task name or number: ";
+                check = _getch();
+                if (check >= 48 && 57 >= check) 
+                {
+                    cin >> taskNum;
+                    list.ViewTask(list.search(taskNum));
+                } 
+                else 
+                {
+                    getline(cin, taskName);
+                    list.ViewTask(list.search(taskName));
+                }
+                _getch();
+                system("cls");
+                break;
+
+            case 3:
+                cout << "\n>----Task list--->\n";
+                list.viewAllTask();
+                _getch();
+                system("cls");
+                break;
+
+            case 4:
+                cout << "\nEnter your Task name or number: ";
+                check = _getch();
+                if (check >= 48 && 57 >= check) 
+                {
+                    cin >> taskNum;
+                    list.MarkToCompleted(list.search(taskNum));
+                } 
+                else 
+                {
+                    getline(cin, taskName);
+                    list.MarkToCompleted(list.search(taskName));
+                }
+                _getch();
+                system("cls");
+                break;
+
+            case 5:
+                cout << "\nEnter your task number or task name: ";
+                check = _getch();
+                if (check >= 48 && 57 >= check) 
+                {
+                    cin >> taskNum;
+                    list.RemoveTask(list.search(taskNum));
+                } 
+                else 
+                {
+                    getline(cin, taskName);
+                    list.RemoveTask(list.search(taskName));
+                }
+                cout << "\nTask Removed\n";
+                system("cls");
+                break;
+
+            case 6:
+                cout << "\t<-------{ GooD LucK }--------->" << endl << endl;
+                _getch();
+                exit(0);
+
+            default:
+                cout << "\nPlease choose a valid option!\n";
+        }
+    }
+    return 0;
 }
