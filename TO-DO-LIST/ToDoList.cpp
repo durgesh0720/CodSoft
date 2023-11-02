@@ -33,20 +33,20 @@ public:
     void viewAllTask();
 };
 
-ToDoList::ToDoList() 
+ToDoList::ToDoList()                // Constructor that assign start pointer in NULL and LoadTask()-> files
 {
     start = NULL;
     LoadTasks();
 }
 
-ToDoList::~ToDoList() 
+ToDoList::~ToDoList()               // Destructor that release memory of given statement and savefiles-> files
 {
     SaveTasks();
     while (start)
         RemoveTask(start);
 }
 
-void ToDoList::LoadTasks() 
+void ToDoList::LoadTasks()          // Defining method for load files from storage or fetch data
 {
     ifstream inputFile("tasks.txt");
     if (inputFile) 
@@ -82,7 +82,7 @@ void ToDoList::LoadTasks()
     }
 }
 
-void ToDoList::SaveTasks() 
+void ToDoList::SaveTasks()              // That method to save tasks in task.txt file 
 {
     ofstream outputFile("tasks.txt");
     if (outputFile) 
@@ -97,7 +97,7 @@ void ToDoList::SaveTasks()
     }
 }
 
-void ToDoList::viewAllTask() 
+void ToDoList::viewAllTask()            // that method for view all task at a time
 {
     Task* t = start;
     while (t) 
@@ -107,7 +107,7 @@ void ToDoList::viewAllTask()
     }
 }
 
-void ToDoList::RemoveTask(Task* t) 
+void ToDoList::RemoveTask(Task* t)          // That method to remove a particular task and update file
 {
     Task* r;
     if (t) 
@@ -130,7 +130,7 @@ void ToDoList::RemoveTask(Task* t)
     }
 }
 
-void ToDoList::MarkToCompleted(Task* t) 
+void ToDoList::MarkToCompleted(Task* t)         // that method to marking a task for complete and update task.txt file
 {
     if (t) 
     {
@@ -148,7 +148,7 @@ void ToDoList::MarkToCompleted(Task* t)
         cout << "\nList is Empty or Task not found!\n";
 }
 
-void ToDoList::ViewTask(Task* t) 
+void ToDoList::ViewTask(Task* t)            // that method for view a particular task
 {
     if (t) 
     {
@@ -165,7 +165,7 @@ void ToDoList::ViewTask(Task* t)
         cout << "\nList is Empty or Task not found!\n";
 }
 
-Task* ToDoList::search(string tsk) 
+Task* ToDoList::search(string tsk)          // that method to searching task by given task name and return task of node
 {
     Task* t = start;
     while (t) 
@@ -177,7 +177,7 @@ Task* ToDoList::search(string tsk)
     return NULL;
 }
 
-Task* ToDoList::search(int n) 
+Task* ToDoList::search(int n)               //that method to searching task by given task number and return task of node
 {
     Task* t = start;
     while (t) 
@@ -190,7 +190,7 @@ Task* ToDoList::search(int n)
     return NULL;
 }
 
-void ToDoList::AddTask(string tsk, int number) 
+void ToDoList::AddTask(string tsk, int number)          // that method to add a new task in list
 {
     Task* t;
     Task* n = new Task;
