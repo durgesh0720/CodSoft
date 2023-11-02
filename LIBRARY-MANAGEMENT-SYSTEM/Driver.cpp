@@ -18,7 +18,7 @@ int main()
         cout<<"\t1.Librarian\n";
         cout<<"\t2.Student\n";
         cin>>n;
-        system("clear");
+        system("cls");
         if(n==1)
         {
             cout<<"\tWELCOME TO LIBRARY!\n";
@@ -32,29 +32,29 @@ int main()
             switch (op)
             {
             case 1:
-                cout<<"\tEnter your book title:"<<endl;
+                cout<<"Enter your book title:"<<endl;
                 getline(cin,Title);
-                cout<<"\tEnter your book author:"<<endl;
+                cout<<"Enter your book author:"<<endl;
                 getline(cin,Author);
-                cout<<"\tEnter your book isbn:"<<endl;
+                cout<<"Enter your book isbn:"<<endl;
                 cin>>Isbn;
                 Admin.AddBook(Title,Author,Isbn);
                 break;
             case 2:
-                cout<<"\tEnter book isbn:"<<endl;
+                cout<<"Enter book isbn:"<<endl;
                 cin>>Isbn;
                 Admin.RemoveBook(Isbn);
                 break;
             case 3:
-                cout<<"\tAll books->\n";
+                cout<<"All books->\n";
                 Admin.CheckAllBooks();
                 break;
             case 4:
-                cout<<"\tThank you!\tPress any key!"<<endl;
+                cout<<"Thank you!\tPress any key!"<<endl;
                 getch();
                 exit(0);
             default:
-                cout<<"\tYou choose wrong option!"<<endl;
+                cout<<"You choose wrong option!"<<endl;
                 break;
             }
         }
@@ -74,34 +74,34 @@ int main()
             switch (op)
             {
             case 1:
-                cout<<"\tEnter your name: "<<endl;
+                cout<<"Enter your name: "<<endl;
                 getline(cin,Name);
-                cout<<"\tEnter your Id No: "<<endl;
+                cout<<"Enter your Id No: "<<endl;
                 cin>>Id;
-                cout<<"\tEnter your book Title: "<<endl;
+                cout<<"Enter your book Title: "<<endl;
                 cin.ignore();
                 getline(cin,Title);
                 User.Book_Checkout(Name,Id,Admin.search_title(Title));
                 break;
             case 2:
-                cout<<"\tChoose a book"<<endl;
+                cout<<"Choose a book"<<endl;
                 User.Return_Book(Admin);
                 break;
             case 3:
-                cout<<"\tEnter book Title: "<<endl;
+                cout<<"Enter book Title: "<<endl;
                 getline(cin,Title);
                 cin.ignore();
                 User.Search_Book_Title(Admin.search_title(Title));
                 getch();
                 break;
             case 4:
-                cout<<"\tEnter book Author: "<<endl;
+                cout<<"Enter book Author: "<<endl;
                 getline(cin,Author);
                 cin.ignore();
                 User.Search_Book_Author(Admin.search_author(Author));
                 break;
             case 5:
-                cout<<"\tEnter book ISBN No:"<<endl;
+                cout<<"Enter book ISBN No:"<<endl;
                 cin>>Isbn;
                 User.Search_Book_ISBN(Admin.search_isbn(Isbn));
                 break;

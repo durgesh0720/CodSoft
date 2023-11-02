@@ -58,7 +58,7 @@ void admin :: CheckAllBooks()
         }
     }
     else
-        cout<<"Library is empty!";
+        cout<<"Library is empty!\n";
 }
 book_info* admin :: search_isbn(long ISBN)
 {
@@ -226,7 +226,6 @@ void user :: All_Transactions(admin& a)
 {
     transaction* t;
     int i=0;
-    int k=0;
     if(head!=NULL)
     {   
         t=head;
