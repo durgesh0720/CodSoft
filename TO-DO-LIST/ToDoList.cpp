@@ -1,6 +1,7 @@
 #include<iostream>
 #include<stdio.h>
 #include<string>
+
 using namespace std;
 
 struct task
@@ -56,12 +57,12 @@ void ToDoList :: MarkToCompleted(task* t)               //  mark to complete
             cout<<"\nThis task is already completed!";
         else
         {
-            cout<<"\nTask mark to completed";
+            cout<<"\nTask marked for complete\n";
             t->status=true;
         }
     }
     else
-        cout<<"\nList is Empty or Task not found!";
+        cout<<"\nList is Empty or Task not found!\n";
 }
 void ToDoList :: ViewTask(task* t)                      // View a particuller task
 {
@@ -70,12 +71,12 @@ void ToDoList :: ViewTask(task* t)                      // View a particuller ta
         cout<<"\nTask number: "<<t->num;
         cout<<"\n Your Task is: "<<t->taskName;
         if(t->status)
-            cout<<"\nYour task is completed!";
+            cout<<"\nYour task is completed!\n";
         else
-            cout<<"\nYour task pending!";
+            cout<<"\nYour task pending!\n";
     }
     else
-        cout<<"\nList is Empty or Task not found!";
+        cout<<"\nList is Empty or Task not found!\n";
 }
 task* ToDoList :: search(string tsk)            // searching task by passing task name and return task node address
 {
