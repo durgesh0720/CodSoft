@@ -3,18 +3,18 @@
         {
             "name": "Win32",
             "includePath": [
-                "C:\\MinGW\\include"
+                "${default}",
+                "C:/msys64/ucrt64/include/x86_64-w64-mingw32",
+                "C:/msys64/ucrt64/include"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "windowsSdkVersion": "10.0.18362.0",
-            "cStandard": "c11",
-            "cppStandard": "c++11",
-            "intelliSenseMode": "${default}",
-            "compilerPath": "C:\\MinGW\\bin\\g++.exe"
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "windows-gcc-x64"
         }
     ],
     "version": 4
