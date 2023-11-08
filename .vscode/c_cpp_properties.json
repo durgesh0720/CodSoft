@@ -4,17 +4,23 @@
             "name": "Win32",
             "includePath": [
                 "${default}",
-                "C:/msys64/ucrt64/include/x86_64-w64-mingw32",
-                "C:/msys64/ucrt64/include"
+                "C:\\MinGW\\include",
+                "C:\\MinGW\\mingw32\\include",
+                "C:\\MinGW\\msys\\1.0\\include",
+                "C:\\MinGW\\include\\ddk",
+                "C:\\MinGW\\include\\sys",
+                "C:\\MinGW\\lib\\gcc\\mingw32\\6.3.0\\include\\c++",
+                "C:/MinGW/lib/gcc/mingw32/6.3.0/include/c++/mingw32"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "cStandard": "c17",
-            "cppStandard": "gnu++17",
-            "intelliSenseMode": "windows-gcc-x64"
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "windows-gcc-x64",
+            "compilerPath": "C:/MinGW/bin/g++.exe"
         }
     ],
     "version": 4
