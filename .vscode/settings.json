@@ -3,5 +3,8 @@
         "C:\\MinGW\\include"
     ],
     "C_Cpp.default.compilerPath": "C:\\MinGW\\include",
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "iostream": "cpp"
+    }
 }

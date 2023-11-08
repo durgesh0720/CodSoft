@@ -16,7 +16,8 @@ int main()
     {
         cout<<"\t\tChoose your option!->\n";
         cout<<"\t1.Librarian\n";
-        cout<<"\t2.Student\n";
+        cout<<"\t2.Student\n\n";
+        cout<<"Choose option:";
         cin>>n;
         system("cls");
         if(n==1)
@@ -26,22 +27,24 @@ int main()
             cout<<"\t1.Add book"<<endl;
             cout<<"\t2.Delete book"<<endl;
             cout<<"\t3.Check all books"<<endl;
-            cout<<"\t4.Exit"<<endl;
+            cout<<"\t4.Exit\n\n"<<endl;
+            cout<<"Choose option:";
             cin>>op;
             cin.ignore();
             switch (op)
             {
             case 1:
-                cout<<"Enter your book title:"<<endl;
+                cout<<"Enter your book title:";
                 getline(cin,Title);
-                cout<<"Enter your book author:"<<endl;
+                cout<<"Enter your book author:";
                 getline(cin,Author);
-                cout<<"Enter your book isbn:"<<endl;
+                cin.ignore();
+                cout<<"Enter your book isbn:";
                 cin>>Isbn;
                 Admin.AddBook(Title,Author,Isbn);
                 break;
             case 2:
-                cout<<"Enter book isbn:"<<endl;
+                cout<<"Enter book isbn:";
                 cin>>Isbn;
                 Admin.RemoveBook(Isbn);
                 break;
@@ -60,7 +63,7 @@ int main()
         }
         else
         {
-            cout<<"\tWELCOME TO LIBRARY!\n";
+            cout<<"\t-------{ WELCOME TO LIBRARY }------\n\n";
             cout<<"\t1.Book borrowers"<<endl;
             cout<<"\t2.Book return"<<endl;
             cout<<"\t3.Search book by Title"<<endl;
@@ -68,18 +71,19 @@ int main()
             cout<<"\t5.Search bokk by Isbn"<<endl;
             cout<<"\t6.Check all transactions"<<endl;
             cout<<"\t7.Terms and conditions"<<endl;
-            cout<<"\t8.Exit"<<endl;
+            cout<<"\t8.Exit\n"<<endl;
+            cout<<"Choose option:";
             cin>>op;
             cin.ignore();
             switch (op)
             {
             case 1:
-                cout<<"Enter your name: "<<endl;
+                cout<<"Enter your name: ";
                 getline(cin,Name);
-                cout<<"Enter your Id No: "<<endl;
+                cout<<"Enter your Id No: ";
                 cin>>Id;
-                cout<<"Enter your book Title: "<<endl;
                 cin.ignore();
+                cout<<"Enter your book Title: ";
                 getline(cin,Title);
                 User.Book_Checkout(Name,Id,Admin.search_title(Title));
                 break;
@@ -88,22 +92,24 @@ int main()
                 User.Return_Book(Admin);
                 break;
             case 3:
-                cout<<"Enter book Title: "<<endl;
-                getline(cin,Title);
                 cin.ignore();
+                cout<<"Enter book Title: ";
+                getline(cin,Title);
                 User.Search_Book_Title(Admin.search_title(Title));
                 getch();
                 break;
             case 4:
-                cout<<"Enter book Author: "<<endl;
+                cout<<"Enter book Author: ";
                 getline(cin,Author);
                 cin.ignore();
                 User.Search_Book_Author(Admin.search_author(Author));
+                getch();
                 break;
             case 5:
-                cout<<"Enter book ISBN No:"<<endl;
+                cout<<"Enter book ISBN No:";
                 cin>>Isbn;
                 User.Search_Book_ISBN(Admin.search_isbn(Isbn));
+                getch();
                 break;
             case 6:
                 cout<<"\tDetails of your transactions!"<<endl;
