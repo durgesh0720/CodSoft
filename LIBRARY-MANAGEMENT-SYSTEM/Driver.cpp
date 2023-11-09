@@ -6,7 +6,7 @@ int main()
     admin Admin;
     user  User;
     string Title,Author,Name;
-    long Id,Isbn;
+    long long Id,Isbn;
     int n,op;
     cout<<endl<<endl;
     cout<<"\t*******************************************************************\n";
@@ -34,17 +34,18 @@ int main()
             switch (op)
             {
             case 1:
-                cout<<"Enter your book title:";
+                cout<<"Enter your book title:"<<endl;
                 getline(cin,Title);
-                cout<<"Enter your book author:";
+                cout<<"Enter your book author:"<<endl;
                 getline(cin,Author);
-                cin.ignore();
-                cout<<"Enter your book isbn:";
+                cout<<"Enter your book isbn:"<<endl;
                 cin>>Isbn;
+                cin.ignore();
                 Admin.AddBook(Title,Author,Isbn);
                 break;
             case 2:
-                cout<<"Enter book isbn:";
+                cin.ignore();
+                cout<<"Enter book isbn:"<<endl;
                 cin>>Isbn;
                 Admin.RemoveBook(Isbn);
                 break;
@@ -78,12 +79,12 @@ int main()
             switch (op)
             {
             case 1:
-                cout<<"Enter your name: ";
+                cout<<"Enter your name: "<<endl;
                 getline(cin,Name);
-                cout<<"Enter your Id No: ";
+                cout<<"Enter your Id No: "<<endl;
                 cin>>Id;
                 cin.ignore();
-                cout<<"Enter your book Title: ";
+                cout<<"Enter your book Title: "<<endl;
                 getline(cin,Title);
                 User.Book_Checkout(Name,Id,Admin.search_title(Title));
                 break;
@@ -93,20 +94,20 @@ int main()
                 break;
             case 3:
                 cin.ignore();
-                cout<<"Enter book Title: ";
+                cout<<"Enter book Title: "<<endl;
                 getline(cin,Title);
                 User.Search_Book_Title(Admin.search_title(Title));
                 getch();
                 break;
             case 4:
-                cout<<"Enter book Author: ";
+                cout<<"Enter book Author: "<<endl;
                 getline(cin,Author);
                 cin.ignore();
                 User.Search_Book_Author(Admin.search_author(Author));
                 getch();
                 break;
             case 5:
-                cout<<"Enter book ISBN No:";
+                cout<<"Enter book ISBN No:"<<endl;
                 cin>>Isbn;
                 User.Search_Book_ISBN(Admin.search_isbn(Isbn));
                 getch();

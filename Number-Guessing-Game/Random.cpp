@@ -10,7 +10,7 @@ int main()
     cout<<"\n\n\t\t--------------------{ WELCOME TO NUMBER GUESSING GAME }--------------------\n\n";
     while(1)
     {
-        cout<<"\nEnter your guess number: ";
+        cout<<"\nEnter your guess number between 1 to 100: ";
         cin>>guess;
         count++;
         if(guess == Gen_Num)

@@ -7,16 +7,16 @@ using namespace std;
 
 struct transaction
 {
-    long isbn;
+    long long isbn;
     transaction* next;
-    long id;
+    long long id;
     string name;
 };
 struct book_info    
 {
     string title;
     string author;
-    long isbn;
+    long long isbn;
     bool status;
     book_info* next;
 };
@@ -27,11 +27,11 @@ class admin
         book_info* start;
     public:
         admin();
-        void AddBook(string,string,long);
-        void RemoveBook(long);
+        void AddBook(string,string,long long);
+        void RemoveBook(long long);
         book_info* search_title(string);
         book_info* search_author(string);
-        book_info* search_isbn(long);
+        book_info* search_isbn(long long);
         void CheckAllBooks();
          ~admin();
 };
@@ -60,7 +60,7 @@ void admin :: CheckAllBooks()
     else
         cout<<"Library is empty!\n";
 }
-book_info* admin :: search_isbn(long ISBN)
+book_info* admin :: search_isbn(long long ISBN)
 {
     book_info* t;
     if(start!=NULL)
@@ -110,28 +110,34 @@ book_info* admin:: search_title(string TITLE)
     }
     return NULL;
 }
-void admin :: RemoveBook(long ISBN)
+void admin :: RemoveBook(long long ISBN)
 {
     book_info* t,*r;
     if(start!=NULL)
     {
         t=start;
         if(t->isbn==ISBN)
-            {
-                start=start->next;
-                r=t;
-            }
+        {
+            start=start->next;
+            r=t;
+        }
         else
+        {
             while(t->next)
             {
                 if(t->next->isbn==ISBN)
-                    r=t->next;
+                    {
+                        r=t->next;
+                        t->next=t->next->next;
+                        break;
+                    }
                 t=t->next;
             }
+        }
         delete r;
     }
 }
-void admin :: AddBook(string TITLE,string AUTHOR,long ISBN)
+void admin :: AddBook(string TITLE,string AUTHOR,long long ISBN)
 {
     book_info* n= new book_info;
     n->title=TITLE;
@@ -155,9 +161,9 @@ admin:: ~admin()
 {
     private:
         transaction* head;
-        void deleteTransaction(long);
+        void deleteTransaction(long long);
     public:
-        void Book_Checkout(string,long,book_info* ); //Enter name,Id,book_info node
+        void Book_Checkout(string,long long,book_info* ); //Enter name,Id,book_info node
         void Search_Book_Title(book_info*);
         void Search_Book_Author(book_info*);
         void Search_Book_ISBN(book_info*);
@@ -177,7 +183,7 @@ void user :: Terms_and_Condition()
     cout<<"<************************Thank You*********************>\n\n";
     cout<<"Press any key to continue----!"<<endl;
 }
-void user :: deleteTransaction(long isbn)
+void user :: deleteTransaction(long long isbn)
 {
     transaction* t,*r;
     int i=0;
@@ -198,6 +204,7 @@ void user :: deleteTransaction(long isbn)
                 {
                     i++;
                     r=t->next;
+                    t->next=t->next->next;
                     break;
                 }
                 t=t->next;
@@ -208,7 +215,7 @@ void user :: deleteTransaction(long isbn)
 }
 void user :: Return_Book(admin& a)
 {
-    long ISBN;
+    long long ISBN;
     book_info* t;
     if(head!=NULL)
     {
@@ -283,7 +290,7 @@ void user :: Search_Book_Title(book_info* t)
             cout<<"\tStatus: Not available\n";
     }
 }
-void user :: Book_Checkout(string Name,long Id,book_info* t)
+void user :: Book_Checkout(string Name,long long Id,book_info* t)
 {
     if(t!=NULL && t->status!=false)
     {
